@@ -25,11 +25,12 @@ class Assignments {
           const assignmentsContainer=document.createElement('div')
           courseContainer.appendChild(assignmentsContainer)
           assignmentsContainer.className="row"
-          courseItem.attributes.assignments.forEach((item)=>{
+          courseItem.attributes.assignments.forEach((assignmentItems)=>{
             const assignmentContainer=document.createElement('div')
             assignmentsContainer.appendChild(assignmentContainer)
-            assignmentContainer.innerHTML=item.name
-            assignmentContainer.className='assignment-container col-sm-3 '
+            this.assignment=new Assignment(assignmentItems)
+            assignmentContainer.innerHTML=this.assignment.render()
+            assignmentContainer.className='assignment-container col-sm-5 '
           })
 
         })
