@@ -14,14 +14,14 @@ class AssignmentsAdapter {
   //     .then(res=>res.json())
   // }
 
-  createAssignments(){
+  createAssignments(name,category,description,grade,courseId){
 
       let formData={
-        name:"physics",
-        category:"Homework",
-        description:"description",
-        grade:12,
-        course_id:1
+        name:name,
+        category:category,
+        description:description,
+        grade:grade,
+        course_id:courseId
       };
      let configObj = {
        method: "POST",

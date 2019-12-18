@@ -32,6 +32,7 @@ class Input {
     inputBox.className='assignments-containers col-sm-5 '
       inputBox.innerHTML=`<h1>Add a new assignment</h1>`
 
+      //add a hidden input with the course id value
       const courseId=document.createElement('input')
       inputBox.appendChild(courseId)
       courseId.type="hidden"
@@ -63,10 +64,11 @@ class Input {
       gradeInput.type="text"
       gradeInput.id='grade'
       gradeInput.placeholder="Grade"
+      inputBox.innerHTML+='<br>'
 
-
-
-
+      const submitBtn=document.createElement('input')
+      inputBox.appendChild(submitBtn)
+      submitBtn.type="submit"
 
   }
 }

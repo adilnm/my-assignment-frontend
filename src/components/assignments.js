@@ -58,10 +58,11 @@ class Assignments {
 
   createAssignments(){
     const assignmentName=document.querySelector('#name')
+    console.log()
     const assignmentCategory=document.querySelector('#category')
     const assignmentDescription=document.querySelector('#description')
     const assignmentGrade=document.querySelector('#grade')
-    this.adapter.createAssignments()
+    // this.adapter.createAssignments()
 
   }
 
