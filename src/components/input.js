@@ -3,7 +3,7 @@ class Input {
   newCourse(divContainer){
     const courseBox=document.createElement('div')
     divContainer.appendChild(courseBox)
-    courseBox.className='courses-containers col-sm-11 '
+    courseBox.className='courses-containers col-sm-5 '
 
     const nameInput=document.createElement('input')
     courseBox.appendChild(nameInput)
@@ -29,8 +29,8 @@ class Input {
   newAssignment(divContainer){
     const inputBox=document.createElement('div')
     divContainer.appendChild(inputBox)
-    inputBox.className='assignments-containers col-sm-6 '
-
+    inputBox.className='assignments-containers col-sm-5 '
+      inputBox.innerHTML=`<h1>Add a new assignment</h1>`
       const nameInput=document.createElement('input')
       inputBox.appendChild(nameInput)
       nameInput.type="text"

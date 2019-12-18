@@ -21,3 +21,15 @@
   padding: 25px 15px;
   margin-bottom: 45px;
 }
+
+.assignments-containers{
+  border-radius: 5px;
+  font-family: georgia;
+  margin: 20px;
+  position: relative;
+  background: #fbfbfb;
+  text-align: center;
+  border: 1px solid silver;
+  padding: 25px 15px;
+  margin-bottom: 45px;
+}

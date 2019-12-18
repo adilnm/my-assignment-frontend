@@ -5,7 +5,7 @@ class Assignments {
     this.initBindingsAndEventListeners()
     this.input=new Input()
     this.getCourses()
-    // this.createAssignments()
+    this.createAssignments()
     // this.createCourse()
 
   }
@@ -17,25 +17,27 @@ class Assignments {
     this.adapter.getCourses()
       .then((json)=>{
         json.data.forEach(courseItem=>{
-          const courseContainer=document.createElement('div')
-          courseContainer.className="col-sm-9 course-container "
-          this.divContainer.appendChild(courseContainer)
-          const course=new Course(courseItem.attributes)
-          courseContainer.innerHTML=course.render()
-          const assignmentsContainer=document.createElement('div')
-          courseContainer.appendChild(assignmentsContainer)
-          assignmentsContainer.className="row"
-          courseItem.attributes.assignments.forEach((assignmentItems)=>{
-            const assignmentContainer=document.createElement('div')
-            assignmentsContainer.appendChild(assignmentContainer)
-            this.assignment=new Assignment(assignmentItems)
-            assignmentContainer.innerHTML=this.assignment.render()
-            assignmentContainer.className='assignment-container col-sm-5 '
-          })
-
+            const courseContainer=document.createElement('div')
+            courseContainer.className="col-sm-9 course-container "
+            this.divContainer.appendChild(courseContainer)
+            const course=new Course(courseItem.attributes)
+            courseContainer.innerHTML=course.render()
+            const assignmentsContainer=document.createElement('div')
+            courseContainer.appendChild(assignmentsContainer)
+            assignmentsContainer.className="row"
+            courseItem.attributes.assignments.forEach((assignmentItems)=>{
+              const assignmentContainer=document.createElement('div')
+              assignmentsContainer.appendChild(assignmentContainer)
+              this.assignment=new Assignment(assignmentItems)
+              assignmentContainer.innerHTML=this.assignment.render()
+              assignmentContainer.className='assignment-container col-sm-5 '
+            })
+            this.input.newAssignment(assignmentsContainer)
         })
       })
   }
+
+
 
   // getAssignments(){
   //   this.adapter.getAssignments()
@@ -52,14 +54,14 @@ class Assignments {
   //       .then(()=>this.input.newCourse(this.divContainer))
   // }
 
-  // createAssignments(){
-  //   const assignmentName=document.querySelector('#name')
-  //   const assignmentCategory=document.querySelector('#category')
-  //   const assignmentDescription=document.querySelector('#description')
-  //   const assignmentGrade=document.querySelector('#grade')
-  //   this.adapter.createAssignments()
-  //
-  // }
+  createAssignments(){
+    const assignmentName=document.querySelector('#name')
+    const assignmentCategory=document.querySelector('#category')
+    const assignmentDescription=document.querySelector('#description')
+    const assignmentGrade=document.querySelector('#grade')
+    this.adapter.createAssignments()
+
+  }
 
   // createCourse(){
   //   this.adapter.createCourses()

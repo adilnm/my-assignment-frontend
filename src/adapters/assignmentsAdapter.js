@@ -9,10 +9,10 @@ class AssignmentsAdapter {
       .then(res=>res.json())
   }
 
-  getAssignments(){
-    return fetch(this.assignmentUrl)
-      .then(res=>res.json())
-  }
+  // getAssignments(){
+  //   return fetch(this.assignmentUrl)
+  //     .then(res=>res.json())
+  // }
 
   createAssignments(){
 
