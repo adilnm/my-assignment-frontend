@@ -26,11 +26,18 @@ class Input {
     semesterInput.id='semester'
     courseBox.innerHTML+='<br>'
   }
-  newAssignment(divContainer){
+  newAssignment(divContainer, courseIdVal){
     const inputBox=document.createElement('div')
     divContainer.appendChild(inputBox)
     inputBox.className='assignments-containers col-sm-5 '
       inputBox.innerHTML=`<h1>Add a new assignment</h1>`
+
+      const courseId=document.createElement('input')
+      inputBox.appendChild(courseId)
+      courseId.type="hidden"
+      courseId.value=courseIdVal
+      courseId.id="course-id"
+
       const nameInput=document.createElement('input')
       inputBox.appendChild(nameInput)
       nameInput.type="text"

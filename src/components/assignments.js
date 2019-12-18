@@ -5,7 +5,7 @@ class Assignments {
     this.initBindingsAndEventListeners()
     this.input=new Input()
     this.getCourses()
-    this.createAssignments()
+    // this.createAssignments()
     // this.createCourse()
 
   }
@@ -32,7 +32,9 @@ class Assignments {
               assignmentContainer.innerHTML=this.assignment.render()
               assignmentContainer.className='assignment-container col-sm-5 '
             })
-            this.input.newAssignment(assignmentsContainer)
+            const courseId=courseItem.id
+            console.log(courseId)
+            this.input.newAssignment(assignmentsContainer,courseId)
         })
       })
   }
