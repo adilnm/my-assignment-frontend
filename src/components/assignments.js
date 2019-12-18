@@ -10,7 +10,7 @@ class Assignments {
 
   }
   initBindingsAndEventListeners(){
-     this.divContainer=document.querySelector('#assignment-container')
+     this.divContainer=document.querySelector('#container')
   }
 
   getCourses(){
@@ -18,14 +18,18 @@ class Assignments {
       .then((json)=>{
         json.data.forEach(courseItem=>{
           const courseContainer=document.createElement('div')
-          courseContainer.className="col-sm-9 course-container"
+          courseContainer.className="col-sm-9 course-container "
           this.divContainer.appendChild(courseContainer)
           const course=new Course(courseItem.attributes)
           courseContainer.innerHTML=course.render()
+          const assignmentsContainer=document.createElement('div')
+          courseContainer.appendChild(assignmentsContainer)
+          assignmentsContainer.className="row"
           courseItem.attributes.assignments.forEach((item)=>{
             const assignmentContainer=document.createElement('div')
-            courseContainer.appendChild(assignmentContainer)
+            assignmentsContainer.appendChild(assignmentContainer)
             assignmentContainer.innerHTML=item.name
+            assignmentContainer.className='assignment-container col-sm-3 '
           })
 
         })
