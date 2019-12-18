@@ -1,8 +1,8 @@
 .course-container{
   border-radius: 5px;
   margin: 20px;
+  font-family: georgia;
   position: relative;
-  opacity:0.6;
   background: #fbfbfb;
   text-align: center;
   border: 1px solid silver;
@@ -12,9 +12,9 @@
 
 .assignment-container{
   border-radius: 5px;
+  font-family: georgia;
   margin: 20px;
   position: relative;
-  opacity:0.6;
   background: #fbfbfb;
   text-align: center;
   border: 1px solid silver;
