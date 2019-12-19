@@ -27,7 +27,7 @@ class Input {
     courseBox.innerHTML+='<br>'
   }
   newAssignment(divContainer, courseIdVal){
-    const inputBox=document.createElement('div')
+    const inputBox=document.createElement('form')
     divContainer.appendChild(inputBox)
     inputBox.className='assignments-containers col-sm-5 '
       inputBox.innerHTML=`<h1>Add a new assignment</h1>`

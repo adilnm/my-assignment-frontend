@@ -1,16 +1,20 @@
 class Assignments {
   constructor() {
+
     this.adapter=new AssignmentsAdapter()
+    this.getCourses()
+    this.input=new Input()
     // this.getAssignments()
     this.initBindingsAndEventListeners()
-    this.input=new Input()
-    this.getCourses()
-    // this.createAssignments()
+
+
     // this.createCourse()
 
   }
   initBindingsAndEventListeners(){
      this.divContainer=document.querySelector('#container')
+     // this.assignmentForm=document.querySelector('.assignments-containers')
+     // this.assignmentForm.addEventListener('submit',this.createAssignments(e))
   }
 
   getCourses(){
@@ -33,10 +37,13 @@ class Assignments {
               assignmentContainer.className='assignment-container col-sm-5 '
             })
             const courseId=courseItem.id
-            console.log(courseId)
             this.input.newAssignment(assignmentsContainer,courseId)
         })
-      })
+      }).then(()=>{
+          const assignmentForm=document.querySelector('.assignments-containers')
+          // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
+          assignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+        })
   }
 
 
@@ -56,14 +63,14 @@ class Assignments {
   //       .then(()=>this.input.newCourse(this.divContainer))
   // }
 
-  createAssignments(){
-    const assignmentName=document.querySelector('#name')
-    console.log()
-    const assignmentCategory=document.querySelector('#category')
-    const assignmentDescription=document.querySelector('#description')
-    const assignmentGrade=document.querySelector('#grade')
-    // this.adapter.createAssignments()
-
+  createAssignments(e){
+    e.preventDefault()
+    debugger
+    const assignmentName=document.querySelector('#name').value
+    const assignmentCategory=document.querySelector('#category').value
+    const assignmentDescription=document.querySelector('#description').value
+    const assignmentGrade=document.querySelector('#grade').value
+    this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription)
   }
 
   // createCourse(){
