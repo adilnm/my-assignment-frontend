@@ -43,26 +43,26 @@ class Input {
       inputBox.appendChild(nameInput)
       nameInput.type="text"
       nameInput.placeholder="Name"
-      nameInput.id='name'
+      nameInput.className='name'
       inputBox.innerHTML+='<br>'
 
       const categoryInput=document.createElement('input')
       inputBox.appendChild(categoryInput)
       categoryInput.type="text"
       categoryInput.placeholder="Category"
-      categoryInput.id='category'
+      categoryInput.className='category'
       inputBox.innerHTML+='<br>'
 
       const descriptionInput=document.createElement('textarea')
       inputBox.appendChild(descriptionInput)
       descriptionInput.placeholder="Description"
-      descriptionInput.id='description'
+      descriptionInput.className='description'
       inputBox.innerHTML+='<br>'
 
       const gradeInput=document.createElement('input')
       inputBox.appendChild(gradeInput)
       gradeInput.type="text"
-      gradeInput.id='grade'
+      gradeInput.className='grade'
       gradeInput.placeholder="Grade"
       inputBox.innerHTML+='<br>'
 

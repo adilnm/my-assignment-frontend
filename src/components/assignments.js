@@ -37,14 +37,15 @@ class Assignments {
               assignmentContainer.className='assignment-container col-sm-5 '
             })
             const courseId=courseItem.id
+            //display the add assignmrnt form
             this.input.newAssignment(assignmentsContainer,courseId)
         })
       }).then(()=>{
-          const assignmentForm=document.querySelector('.assignments-containers')
+          const assignmentForm=document.querySelectorAll('.assignments-containers')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
-          assignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+          assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
         }).then(()=>{
-            console.log("something")
+
         })
   }
 
@@ -67,12 +68,12 @@ class Assignments {
 
   createAssignments(e){
     e.preventDefault()
-    const assignmentName=document.querySelector('#name').value
-    const assignmentCategory=document.querySelector('#category').value
-    const assignmentDescription=document.querySelector('#description').value
-    const assignmentGrade=document.querySelector('#grade').value
-    const courseId=document.querySelector('#course-id').value
-
+    // Use of e.target to be able to get the value from that spcific form that we filled out
+    const assignmentName=e.target.querySelector('.name').value
+    const assignmentCategory=e.target.querySelector('.category').value
+    const assignmentDescription=e.target.querySelector('.description').value
+    const assignmentGrade=e.target.querySelector('.grade').value
+    const courseId=e.target.querySelector('#course-id').value
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId)
   }
 
