@@ -43,6 +43,8 @@ class Assignments {
           const assignmentForm=document.querySelector('.assignments-containers')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+        }).then(()=>{
+            console.log("something")
         })
   }
 
@@ -65,12 +67,13 @@ class Assignments {
 
   createAssignments(e){
     e.preventDefault()
-    debugger
     const assignmentName=document.querySelector('#name').value
     const assignmentCategory=document.querySelector('#category').value
     const assignmentDescription=document.querySelector('#description').value
     const assignmentGrade=document.querySelector('#grade').value
-    this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription)
+    const courseId=document.querySelector('#course-id').value
+
+    this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId)
   }
 
   // createCourse(){
