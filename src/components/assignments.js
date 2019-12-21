@@ -28,7 +28,8 @@ class Assignments {
             courseContainer.innerHTML=course.render()
             const assignmentsContainer=document.createElement('div')
             courseContainer.appendChild(assignmentsContainer)
-            assignmentsContainer.className="row"
+            assignmentsContainer.className="assignments-containers row"
+            assignmentsContainer.id=courseItem.id
             courseItem.attributes.assignments.forEach((assignmentItems)=>{
               const assignmentContainer=document.createElement('div')
               assignmentsContainer.appendChild(assignmentContainer)
@@ -41,11 +42,9 @@ class Assignments {
             this.input.newAssignment(assignmentsContainer,courseId)
         })
       }).then(()=>{
-          const assignmentForm=document.querySelectorAll('.assignments-containers')
+          const assignmentForm=document.querySelectorAll('.assignment-form')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
-        }).then(()=>{
-
         })
   }
 
@@ -75,6 +74,14 @@ class Assignments {
     const assignmentGrade=e.target.querySelector('.grade').value
     const courseId=e.target.querySelector('#course-id').value
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId)
+    .then((json)=>{
+      const assignmentContainer=document.createElement('div')
+      document.getElementById(`${json.course_id}`).appendChild(assignmentContainer)
+      this.assignment=new Assignment(json)
+      assignmentContainer.innerHTML=this.assignment.render()
+      assignmentContainer.className='assignment-container col-sm-5 '
+    })
+
   }
 
   // createCourse(){
