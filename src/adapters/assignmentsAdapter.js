@@ -37,6 +37,11 @@ class AssignmentsAdapter {
 
   }
 
+  deleteAssignments(id){
+    return fetch(`${this.assignmentUrl}/${id}`, {method: 'DELETE'})
+      .then(res=>res.json())
+  }
+
   createCourses(){
     let formData={
     name:"physics",

@@ -7,7 +7,6 @@ class Assignments {
     // this.getAssignments()
     this.initBindingsAndEventListeners()
 
-
     // this.createCourse()
 
   }
@@ -35,7 +34,10 @@ class Assignments {
               assignmentsContainer.appendChild(assignmentContainer)
               this.assignment=new Assignment(assignmentItems)
               assignmentContainer.innerHTML=this.assignment.render()
-              assignmentContainer.className='assignment-container col-sm-5 '
+              assignmentContainer.className='assignment-container col-sm-5'
+              const deltBtn=document.createElement('button')
+              assignmentContainer.appendChild(deltBtn)
+              deltBtn.innerText='DELETE'
             })
             const courseId=courseItem.id
             //display the add assignmrnt form
@@ -48,22 +50,6 @@ class Assignments {
         })
   }
 
-
-
-  // getAssignments(){
-  //   this.adapter.getAssignments()
-  //     .then(json=>{
-  //       const courseContainer=document.createElement('div')
-  //       json.data.forEach(assignmentCard=>{
-  //         this.assignment=new Assignment(assignmentCard)
-  //         const assignmentContainer=document.createElement('div')
-  //         this.divContainer.appendChild(assignmentContainer)
-  //         assignmentContainer.className='assignments-containers col-sm-6 '
-  //         assignmentContainer.innerHTML=this.assignment.renderDiv()
-  //       })
-  //     }).then(()=>this.input.newAssignment(this.divContainer))
-  //       .then(()=>this.input.newCourse(this.divContainer))
-  // }
 
   createAssignments(e){
     e.preventDefault()
@@ -83,6 +69,11 @@ class Assignments {
     })
 
   }
+
+  deleteAssignments(){
+    this.adapter.deleteAssignments(1)
+  }
+
 
   // createCourse(){
   //   this.adapter.createCourses()
