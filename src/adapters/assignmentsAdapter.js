@@ -14,14 +14,15 @@ class AssignmentsAdapter {
   //     .then(res=>res.json())
   // }
 
-  createAssignments(name,category,description,grade,courseId){
+  createAssignments(name,category,description,grade,courseId, deadline){
 
       let formData={
         name:name,
         category:category,
         description:description,
         grade:grade,
-        course_id:courseId
+        course_id:courseId,
+        deadline:deadline
       };
      let configObj = {
        method: "POST",
@@ -33,6 +34,29 @@ class AssignmentsAdapter {
      };
 
      return fetch(this.assignmentUrl, configObj)
+      .then(res=>res.json())
+
+  }
+
+  updateAssignments(name,category,description,grade,assignmentId){
+
+      let formData={
+        name:name,
+        category:category,
+        description:description,
+        grade:grade,
+        assignmentId:courseId
+      };
+     let configObj = {
+       method: "PATCH",
+       headers: {
+         "Content-Type": "application/json",
+         "Accept": "application/json"
+       },
+       body: JSON.stringify(formData)
+     };
+
+     return fetch(`${this.assignmentUrl}/${id}`, configObj)
       .then(res=>res.json())
 
   }

@@ -42,6 +42,11 @@ class Assignments {
               deltBtn.innerText='DELETE'
               deltBtn.setAttribute("Assignment-id", assignmentItems.id)
               deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
+              const editBtn=document.createElement('button')
+              assignmentContainer.appendChild(editBtn)
+              editBtn.innerText='EDIT'
+              editBtn.setAttribute("Assignment-id", assignmentItems.id)
+              editBtn.addEventListener('click',this.editAssignments.bind(this))
             })
             const courseId=courseItem.id
             //display the add assignmrnt form
@@ -63,7 +68,9 @@ class Assignments {
     const assignmentDescription=e.target.querySelector('.description').value
     const assignmentGrade=e.target.querySelector('.grade').value
     const courseId=e.target.querySelector('#course-id').value
-    this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId)
+    const deadline=e.target.querySelector('.deadline').value
+
+    this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
     .then((json)=>{
       const assignmentContainer=document.createElement('div')
       document.getElementById(`${json.course_id}`).appendChild(assignmentContainer)
@@ -75,8 +82,18 @@ class Assignments {
       deltBtn.innerText='DELETE'
       deltBtn.setAttribute("Assignment-id", json.id)
       deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
+      const editBtn=document.createElement('button')
+      assignmentContainer.appendChild(editBtn)
+      editBtn.innerText='EDIT'
+      editBtn.setAttribute("Assignment-id", assignmentItems.id)
+      editBtn.addEventListener('click',this.editAssignments.bind(this))
     })
 
+  }
+
+  editAssignments(e){
+    this.adapter.updateAssignments("Arabic")
+    .then(json=>console.log(json))
   }
 
   deleteAssignments(e){

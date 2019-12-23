@@ -66,6 +66,12 @@ class Input {
       gradeInput.placeholder="Grade"
       inputBox.innerHTML+='<br>'
 
+      const deadlineInput=document.createElement('input')
+      inputBox.appendChild(deadlineInput)
+      deadlineInput.type="date"
+      deadlineInput.className='deadline'
+      inputBox.innerHTML+='<br>'
+
       const submitBtn=document.createElement('input')
       inputBox.appendChild(submitBtn)
       submitBtn.type="submit"
