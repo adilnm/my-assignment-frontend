@@ -13,6 +13,7 @@ class Assignments {
   }
   initBindingsAndEventListeners(){
      this.divContainer=document.querySelector('#container')
+
      // this.assignmentForm=document.querySelector('.assignments-containers')
      // this.assignmentForm.addEventListener('submit',this.createAssignments(e))
   }
@@ -42,9 +43,11 @@ class Assignments {
               deltBtn.innerText='DELETE'
               deltBtn.setAttribute("Assignment-id", assignmentItems.id)
               deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
+              deltBtn.className='btn btn-danger btn-lg'
               const editBtn=document.createElement('button')
               assignmentContainer.appendChild(editBtn)
               editBtn.innerText='EDIT'
+              editBtn.className='btn btn-info btn-lg'
               editBtn.setAttribute("Assignment-id", assignmentItems.id)
               editBtn.addEventListener('click',this.editAssignments.bind(this))
             })
@@ -56,11 +59,12 @@ class Assignments {
           const assignmentForm=document.querySelectorAll('.assignment-form')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
-        })
+        }).then(this.editableContent)
   }
 
 
   createAssignments(e){
+
     e.preventDefault()
     // Use of e.target to be able to get the value from that spcific form that we filled out
     const assignmentName=e.target.querySelector('.name').value
@@ -91,6 +95,7 @@ class Assignments {
 
   }
 
+
   editAssignments(e){
     this.adapter.updateAssignments("Arabic")
     .then(json=>console.log(json))
@@ -107,5 +112,16 @@ class Assignments {
   // createCourse(){
   //   this.adapter.createCourses()
   // }
+
+  editableContent(){
+    const editables=document.querySelectorAll('.editable-content')
+    editables.forEach(item=>{
+      item.addEventListener('dblclick',(e)=>{
+        e.target.contentEditable=true
+        e.target.className='edit'
+      })
+    })
+  }
+
 
 }
