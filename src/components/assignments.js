@@ -22,7 +22,7 @@ class Assignments {
       .then((json)=>{
         json.data.forEach(courseItem=>{
             const courseContainer=document.createElement('div')
-            courseContainer.className="col-sm-9 course-container "
+            courseContainer.className="col-sm-12 course-container "
             this.divContainer.appendChild(courseContainer)
             const course=new Course(courseItem.attributes)
             courseContainer.innerHTML=course.render()
@@ -85,7 +85,7 @@ class Assignments {
       const editBtn=document.createElement('button')
       assignmentContainer.appendChild(editBtn)
       editBtn.innerText='EDIT'
-      editBtn.setAttribute("Assignment-id", assignmentItems.id)
+      editBtn.setAttribute("Assignment-id", json.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
     })
 
