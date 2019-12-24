@@ -46,7 +46,7 @@ class Assignments {
               deltBtn.className='btn btn-danger btn-lg'
               const editBtn=document.createElement('button')
               assignmentContainer.appendChild(editBtn)
-              editBtn.innerText='EDIT'
+              editBtn.innerText='UPDATE'
               editBtn.className='btn btn-info btn-lg'
               editBtn.setAttribute("Assignment-id", assignmentItems.id)
               editBtn.addEventListener('click',this.editAssignments.bind(this))
@@ -119,6 +119,10 @@ class Assignments {
       item.addEventListener('dblclick',(e)=>{
         e.target.contentEditable=true
         e.target.className='edit'
+      })
+      item.addEventListener('blur',(e)=>{
+        e.target.contentEditable=false
+        e.target.className=''
       })
     })
   }
