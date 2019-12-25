@@ -38,25 +38,23 @@ class AssignmentsAdapter {
 
   }
 
-  updateAssignments(name,category,description,grade,assignmentId){
-
+  updateAssignments(assignmentId,name,category,description,grade,deadline){
       let formData={
+        id:assignmentId,
         name:name,
+        category:category,
         category:category,
         description:description,
         grade:grade,
-        assignmentId:courseId
       };
      let configObj = {
        method: "PATCH",
        headers: {
          "Content-Type": "application/json",
-         "Accept": "application/json"
        },
        body: JSON.stringify(formData)
      };
-
-     return fetch(`${this.assignmentUrl}/${id}`, configObj)
+     return fetch(`${this.assignmentUrl}/${assignmentId}`, configObj)
       .then(res=>res.json())
 
   }

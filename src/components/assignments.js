@@ -97,8 +97,18 @@ class Assignments {
 
 
   editAssignments(e){
-    this.adapter.updateAssignments("Arabic")
-    .then(json=>console.log(json))
+    const updatedCard=e.target.parentElement
+    const assignmentId=e.target.getAttribute("assignment-id")
+    const name=updatedCard.querySelector('.assignment-name').innerText
+    const category=updatedCard.querySelector('.assignment-category').innerText
+    const description=updatedCard.querySelector('.assignment-description').innerText
+    const grade=updatedCard.querySelector('.assignment-grade').innerText
+    const deadline=updatedCard.querySelector('.assignment-deadline').innerText
+    debugger
+    this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
+    .then(json=>{
+      console.log(json)
+    })
   }
 
   deleteAssignments(e){
@@ -118,11 +128,11 @@ class Assignments {
     editables.forEach(item=>{
       item.addEventListener('dblclick',(e)=>{
         e.target.contentEditable=true
-        e.target.className='edit'
+        e.target.classList.add("edit")
       })
       item.addEventListener('blur',(e)=>{
         e.target.contentEditable=false
-        e.target.className=''
+        e.target.classList.remove("edit")
       })
     })
   }
