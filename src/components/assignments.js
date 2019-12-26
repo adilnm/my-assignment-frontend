@@ -1,6 +1,5 @@
 class Assignments {
   constructor() {
-
     this.adapter=new AssignmentsAdapter()
     this.getCourses()
     this.input=new Input()
@@ -8,7 +7,6 @@ class Assignments {
     this.initBindingsAndEventListeners()
 
 
-    // this.createCourse()
 
   }
   initBindingsAndEventListeners(){
@@ -60,6 +58,7 @@ class Assignments {
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
         }).then(this.editableContent)
+          .then(this.createCourse.bind(this))
   }
 
 
@@ -104,11 +103,8 @@ class Assignments {
     const description=updatedCard.querySelector('.assignment-description').innerText
     const grade=updatedCard.querySelector('.assignment-grade').innerText
     const deadline=updatedCard.querySelector('.assignment-deadline').innerText
-    debugger
     this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
-    .then(json=>{
-      console.log(json)
-    })
+
   }
 
   deleteAssignments(e){
@@ -119,9 +115,13 @@ class Assignments {
   }
 
 
-  // createCourse(){
-  //   this.adapter.createCourses()
-  // }
+  createCourse(){
+    const courseContainer=document.createElement('div')
+    courseContainer.className="col-sm-12 course-container "
+    this.divContainer.appendChild(courseContainer)
+    this.input.newCourse(courseContainer)
+    this.adapter.createCourses()
+  }
 
   editableContent(){
     const editables=document.querySelectorAll('.editable-content')
@@ -136,6 +136,7 @@ class Assignments {
       })
     })
   }
+
 
 
 }
