@@ -3,7 +3,8 @@ class Input {
   newCourse(divContainer){
     const courseBox=document.createElement('form')
     divContainer.appendChild(courseBox)
-    courseBox.className='course-form col-sm-12'
+    courseBox.className='col-sm-12'
+    courseBox.id='course-form'
     courseBox.innerHTML=`<h1>Add a New Course</h1>`
 
     const nameInput=document.createElement('input')

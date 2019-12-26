@@ -54,9 +54,9 @@ class Assignments {
             this.input.newAssignment(assignmentsContainer,courseId)
         })
       }).then(()=>{
-          const assignmentForm=document.querySelectorAll('.assignment-form')
+          const assignmentForms=document.querySelectorAll('.assignment-form')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
-          assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
+          assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
         }).then(this.editableContent)
           .then(this.courseForm.bind(this))
   }
@@ -120,8 +120,8 @@ class Assignments {
     div.className="col-sm-12 course-container "
     this.divContainer.appendChild(div)
     this.input.newCourse(div)
-    const courseForm=document.querySelector('.course-form')
-    courseForm.addEventListener('submit',this.createCourse.bind(this))
+    this.newCourseForm=document.querySelector('#course-form')
+    this.newCourseForm.addEventListener('submit',this.createCourse.bind(this))
     // this.adapter.createCourses()
   }
 
@@ -145,6 +145,24 @@ class Assignments {
     const professor=document.querySelector('#professor').value
     const semester=document.querySelector('#semester').value
     this.adapter.createCourses(name, professor, semester)
+    .then((json)=>{
+      const courseId=json.id
+      const courseContainer=document.createElement('div')
+      courseContainer.className="col-sm-12 course-container "
+      this.divContainer.appendChild(courseContainer)
+      const course=new Course(json)
+      courseContainer.innerHTML=course.render()
+      const assignmentsContainer=document.createElement('div')
+      courseContainer.appendChild(assignmentsContainer)
+      assignmentsContainer.className="assignments-containers row"
+      assignmentsContainer.id=json.id
+      this.input.newAssignment(assignmentsContainer,courseId)
+      const assignmentsForm=document.querySelectorAll('.assignment-form')
+      // select the assignment form of the last added course
+      const newAssignmentForm=assignmentsForm[assignmentsForm.length-1]
+      newAssignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+
+    })
   }
 
 
