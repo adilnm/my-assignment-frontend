@@ -9,11 +9,6 @@ class AssignmentsAdapter {
       .then(res=>res.json())
   }
 
-  // getAssignments(){
-  //   return fetch(this.assignmentUrl)
-  //     .then(res=>res.json())
-  // }
-
   createAssignments(name,category,description,grade,courseId, deadline){
 
       let formData={
@@ -66,10 +61,10 @@ class AssignmentsAdapter {
 
   createCourses(name, professor, semester){
     let formData={
-    name:name,
-    professor:professor,
-    semester:semester,
-  };
+      name:name,
+      professor:professor,
+      semester:semester,
+    };
  let configObj = {
    method: "POST",
    headers: {
@@ -77,9 +72,14 @@ class AssignmentsAdapter {
      "Accept": "application/json"
    },
    body: JSON.stringify(formData)
- };
+  };
 
  return fetch(this.courseUrl, configObj)
   .then(res=>res.json())
+}
+
+  deleteCourses(id){
+    return fetch(`${this.courseUrl}/${id}`, {method: 'DELETE'})
+      .then(res=>res.json())
   }
 }

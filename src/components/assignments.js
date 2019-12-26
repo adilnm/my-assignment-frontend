@@ -52,6 +52,12 @@ class Assignments {
             const courseId=courseItem.id
             //display the add assignmrnt form
             this.input.newAssignment(assignmentsContainer,courseId)
+            const courseDeltBtn=document.createElement('button')
+            courseContainer.appendChild(courseDeltBtn)
+            courseDeltBtn.className='delete-course btn btn-danger btn-lg'
+            courseDeltBtn.innerText='DELETE COURSE'
+            courseDeltBtn.setAttribute("course-id", courseId)
+            courseDeltBtn.addEventListener('click', this.deleteCourse.bind(this))
         })
       }).then(()=>{
           const assignmentForms=document.querySelectorAll('.assignment-form')
@@ -88,11 +94,11 @@ class Assignments {
       deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
       const editBtn=document.createElement('button')
       assignmentContainer.appendChild(editBtn)
-      editBtn.innerText='EDIT'
+      editBtn.innerText='UPDATE'
       editBtn.className='btn btn-info btn-lg'
       editBtn.setAttribute("Assignment-id", json.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
-    })
+    }).then(this.editableContent)
 
   }
 
@@ -164,12 +170,23 @@ class Assignments {
       assignmentsContainer.className="assignments-containers row"
       assignmentsContainer.id=json.id
       this.input.newAssignment(assignmentsContainer,courseId)
+      const courseDeltBtn=document.createElement('button')
+      courseContainer.appendChild(courseDeltBtn)
+      courseDeltBtn.className='delete-course btn btn-danger btn-lg'
+      courseDeltBtn.innerText='DELETE COURSE'
+      courseDeltBtn.setAttribute("course-id", courseId)
+      courseDeltBtn.addEventListener('click', this.deleteCourse.bind(this))
       const assignmentsForm=document.querySelectorAll('.assignment-form')
       // select the assignment form of the last added course
       const newAssignmentForm=assignmentsForm[assignmentsForm.length-1]
       newAssignmentForm.addEventListener('submit',this.createAssignments.bind(this))
 
     })
+  }
+
+  deleteCourse(e){
+    const courseId=e.target.getAttribute("course-id")
+    this.adapter.deleteCourses(courseId)
   }
 
 
