@@ -64,11 +64,11 @@ class AssignmentsAdapter {
       .then(res=>res.json())
   }
 
-  createCourses(){
+  createCourses(name, professor, semester){
     let formData={
-    name:"physics",
-    professor:"Mr David",
-    semester:"Fall 2019",
+    name:name,
+    professor:professor,
+    semester:semester,
   };
  let configObj = {
    method: "POST",

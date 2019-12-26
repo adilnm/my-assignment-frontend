@@ -58,7 +58,7 @@ class Assignments {
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForm.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
         }).then(this.editableContent)
-          .then(this.createCourse.bind(this))
+          .then(this.courseForm.bind(this))
   }
 
 
@@ -115,12 +115,14 @@ class Assignments {
   }
 
 
-  createCourse(){
-    const courseContainer=document.createElement('div')
-    courseContainer.className="col-sm-12 course-container "
-    this.divContainer.appendChild(courseContainer)
-    this.input.newCourse(courseContainer)
-    this.adapter.createCourses()
+  courseForm(){
+    const div=document.createElement('div')
+    div.className="col-sm-12 course-container "
+    this.divContainer.appendChild(div)
+    this.input.newCourse(div)
+    const courseForm=document.querySelector('.course-form')
+    courseForm.addEventListener('submit',this.createCourse.bind(this))
+    // this.adapter.createCourses()
   }
 
   editableContent(){
@@ -137,6 +139,13 @@ class Assignments {
     })
   }
 
+  createCourse(e){
+    e.preventDefault()
+    const name=document.querySelector('#course-name').value
+    const professor=document.querySelector('#professor').value
+    const semester=document.querySelector('#semester').value
+    this.adapter.createCourses(name, professor, semester)
+  }
 
 
 }

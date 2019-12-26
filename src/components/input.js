@@ -1,9 +1,10 @@
 class Input {
 
   newCourse(divContainer){
-    const courseBox=document.createElement('div')
+    const courseBox=document.createElement('form')
     divContainer.appendChild(courseBox)
-    courseBox.className='courses-containers col-sm-5 '
+    courseBox.className='course-form col-sm-12'
+    courseBox.innerHTML=`<h1>Add a New Course</h1>`
 
     const nameInput=document.createElement('input')
     courseBox.appendChild(nameInput)
@@ -25,6 +26,10 @@ class Input {
     semesterInput.placeholder="Semester"
     semesterInput.id='semester'
     courseBox.innerHTML+='<br>'
+
+    const submitBtn=document.createElement('input')
+    courseBox.appendChild(submitBtn)
+    submitBtn.type="submit"
   }
   newAssignment(divContainer, courseIdVal){
     const inputBox=document.createElement('form')
