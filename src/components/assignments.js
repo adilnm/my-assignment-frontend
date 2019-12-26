@@ -83,11 +83,13 @@ class Assignments {
       const deltBtn=document.createElement('button')
       assignmentContainer.appendChild(deltBtn)
       deltBtn.innerText='DELETE'
+      deltBtn.className='btn btn-danger btn-lg'
       deltBtn.setAttribute("Assignment-id", json.id)
       deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
       const editBtn=document.createElement('button')
       assignmentContainer.appendChild(editBtn)
       editBtn.innerText='EDIT'
+      editBtn.className='btn btn-info btn-lg'
       editBtn.setAttribute("Assignment-id", json.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
     })
@@ -108,10 +110,15 @@ class Assignments {
   }
 
   deleteAssignments(e){
-    this.adapter.deleteAssignments(e.target.getAttribute("assignment-id"))
-    .then((json)=>{
-      e.target.parentElement.remove()
-    })
+    // confirm is used as a confirmation before deleting an assignmrnt
+    const r=confirm("Are you sure ?")
+    if(r==true)
+    {
+      this.adapter.deleteAssignments(e.target.getAttribute("assignment-id"))
+      .then((json)=>{
+        e.target.parentElement.remove()
+      })
+    }
   }
 
 
