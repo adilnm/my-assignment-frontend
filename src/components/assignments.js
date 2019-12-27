@@ -185,8 +185,15 @@ class Assignments {
   }
 
   deleteCourse(e){
-    const courseId=e.target.getAttribute("course-id")
-    this.adapter.deleteCourses(courseId)
+    const r=confirm("Are you sure you want to remove this course?")
+    if(r==true)
+    {
+      const courseId=e.target.getAttribute("course-id")
+      this.adapter.deleteCourses(courseId)
+        .then((json)=>{
+          e.target.parentElement.remove()
+        })
+    }
   }
 
 
