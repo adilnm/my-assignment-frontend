@@ -64,8 +64,10 @@ class Assignments {
           const assignmentForms=document.querySelectorAll('.assignment-form')
           // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
           assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
-        }).then(this.editableContent)
+        }).then(this.editableAssignment.bind(this))
+        .then(this.editableCourse.bind(this))
           .then(this.courseForm.bind(this))
+
   }
 
 
@@ -99,7 +101,7 @@ class Assignments {
       editBtn.className='btn btn-info btn-lg'
       editBtn.setAttribute("Assignment-id", json.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
-    }).then(this.editableContent)
+    }).then(this.editableAssignment.bind(this))
 
   }
 
@@ -139,9 +141,9 @@ class Assignments {
     // this.adapter.createCourses()
   }
 
-  editableContent(){
-    const editables=document.querySelectorAll('.editable-content')
-    editables.forEach(item=>{
+  editableAssignment(){
+    const assignmentEditables=document.querySelectorAll('.editable-assignment')
+    assignmentEditables.forEach(item=>{
       item.addEventListener('dblclick',(e)=>{
         e.target.contentEditable=true
         e.target.classList.add("edit")
@@ -149,6 +151,21 @@ class Assignments {
       item.addEventListener('blur',(e)=>{
         e.target.contentEditable=false
         e.target.classList.remove("edit")
+      })
+    })
+  }
+
+  editableCourse(){
+    const courseEditables=document.querySelectorAll('.editable-course')
+    courseEditables.forEach(item=>{
+      item.addEventListener('dblclick',(e)=>{
+        e.target.contentEditable=true
+        e.target.classList.add("edit")
+      })
+      item.addEventListener('blur',(e)=>{
+        e.target.contentEditable=false
+        e.target.classList.remove("edit")
+        this.editCourse.call(this,e)
       })
     })
   }
@@ -181,8 +198,7 @@ class Assignments {
       // select the assignment form of the last added course
       const newAssignmentForm=assignmentsForm[assignmentsForm.length-1]
       newAssignmentForm.addEventListener('submit',this.createAssignments.bind(this))
-
-    })
+    }).then(this.editableCourse.bind(this))
   }
 
   deleteCourse(e){
@@ -195,6 +211,15 @@ class Assignments {
           e.target.parentElement.remove()
         })
     }
+  }
+
+  editCourse(e){
+    const courseId=e.target.getAttribute('course-id')
+    const div=e.target.parentElement
+    const courseName=div.querySelector('.course-name').innerText
+    const courseProfessor=div.querySelector('.course-professor').innerText
+    const courseSemester=div.querySelector('.course-semester').innerText
+    this.adapter.updateCourse(courseId, courseName, courseProfessor, courseSemester)
   }
 
 

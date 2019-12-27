@@ -11,6 +11,6 @@ class Assignment {
   }
 
     render(){
-      return `<div class="editable-content card border-dark mb-3"><h1 class="card-header assignment-name"> ${this.name}</h1><h2>Category: <span class='editable-content assignment-category'>${this.category}</span></h2><h3>Deadline: <span class='editable-content assignment-deadline'>${this.deadline}</span></h3><h3>Description: <span class='editable-content assignment-description'>${this.description}</span></h3><h3>Grade: <span class='editable-content assignment-grade'>${this.grade}</span></h3></div>`
+      return `<div card border-dark mb-3"><h1 class="editable-assignment card-header assignment-name"> ${this.name}</h1><h2>Category: <span class='editable-assignment assignment-category'>${this.category}</span></h2><h3>Deadline: <span class='editable-assignment assignment-deadline'>${this.deadline}</span></h3><h3>Description: <span class='editable-assignment assignment-description'>${this.description}</span></h3><h3>Grade: <span class='editable-assignment assignment-grade'>${this.grade}</span></h3></div>`
     }
 }

@@ -82,4 +82,21 @@ class AssignmentsAdapter {
     return fetch(`${this.courseUrl}/${id}`, {method: 'DELETE'})
       .then(res=>res.json())
   }
+
+  updateCourse(courseId, name, professor, semester){
+    let formData={
+      name:name,
+      professor:professor,
+      semester:semester
+    };
+   let configObj = {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(formData)
+   };
+   return fetch(`${this.courseUrl}/${courseId}`, configObj)
+    .then(res=>res.json())
+  }
 }
