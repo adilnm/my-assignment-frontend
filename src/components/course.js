@@ -1,11 +1,12 @@
 class Course {
-  constructor(courseJson) {
+  constructor(courseJson,id) {
+    this.id=id
     this.name=courseJson.name
     this.professor=courseJson.professor
     this.semester=courseJson.semester
   }
 
   render(){
-    return `<h1>${this.name}</h1><span>(${this.semester})</span><h3>${this.professor}</h3>`;
+    return `<h1 course-id=${this.id}>${this.name}</h1><span course-id=${this.id}>(${this.semester})</span><h3 course-id=${this.id}>${this.professor}</h3>`;
   }
 }

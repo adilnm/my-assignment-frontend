@@ -23,7 +23,8 @@ class Assignments {
             const courseContainer=document.createElement('div')
             courseContainer.className="col-sm-12 course-container "
             this.divContainer.appendChild(courseContainer)
-            const course=new Course(courseItem.attributes)
+            const course=new Course(courseItem.attributes,courseItem.id)
+
             courseContainer.innerHTML=course.render()
             const assignmentsContainer=document.createElement('div')
             courseContainer.appendChild(assignmentsContainer)
@@ -163,7 +164,7 @@ class Assignments {
       const courseContainer=document.createElement('div')
       courseContainer.className="col-sm-12 course-container "
       this.divContainer.appendChild(courseContainer)
-      const course=new Course(json)
+      const course=new Course(json,courseId)
       courseContainer.innerHTML=course.render()
       const assignmentsContainer=document.createElement('div')
       courseContainer.appendChild(assignmentsContainer)
