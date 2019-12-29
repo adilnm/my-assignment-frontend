@@ -5,7 +5,7 @@ class Assignments {
     this.input=new Input()
     // this.getAssignments()
     this.initBindingsAndEventListeners()
-
+    // this.countDown=new CountDown('01-30-2019')
 
 
   }
@@ -38,6 +38,9 @@ class Assignments {
               div.appendChild(assignmentContainer)
               this.assignment=new Assignment(assignmentItems)
               assignmentContainer.innerHTML=this.assignment.render()
+              const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
+              const remaining=new CountDown(deadlineDate)
+              assignmentContainer.innerHTML+=remaining.daysRemaining()
               assignmentContainer.className='assignment-container'
               assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
               const deltBtn=document.createElement('button')
