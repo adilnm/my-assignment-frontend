@@ -21,7 +21,7 @@ class Assignments {
       .then((json)=>{
         json.data.forEach(courseItem=>{
             const courseContainer=document.createElement('div')
-            courseContainer.className="col-sm-12 course-container "
+            courseContainer.className="col-sm-12 course-container container-fluid "
             this.divContainer.appendChild(courseContainer)
             const course=new Course(courseItem.attributes,courseItem.id)
 
@@ -31,22 +31,25 @@ class Assignments {
             assignmentsContainer.className="assignments-containers row"
             assignmentsContainer.id=courseItem.id
             courseItem.attributes.assignments.forEach((assignmentItems)=>{
+              const div=document.createElement('div')
+              div.className='col-sm-6'
+              assignmentsContainer.appendChild(div)
               const assignmentContainer=document.createElement('div')
-              assignmentsContainer.appendChild(assignmentContainer)
+              div.appendChild(assignmentContainer)
               this.assignment=new Assignment(assignmentItems)
               assignmentContainer.innerHTML=this.assignment.render()
-              assignmentContainer.className='assignment-container col-sm-5'
+              assignmentContainer.className='assignment-container'
               assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
               const deltBtn=document.createElement('button')
               assignmentContainer.appendChild(deltBtn)
               deltBtn.innerText='DELETE'
               deltBtn.setAttribute("Assignment-id", assignmentItems.id)
+              deltBtn.className='btn btn-outline-danger btn-lg'
               deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
-              deltBtn.className='btn btn-danger btn-lg'
               const editBtn=document.createElement('button')
               assignmentContainer.appendChild(editBtn)
               editBtn.innerText='UPDATE'
-              editBtn.className='btn btn-info btn-lg'
+              editBtn.className='btn btn-outline-primary btn-lg'
               editBtn.setAttribute("Assignment-id", assignmentItems.id)
               editBtn.addEventListener('click',this.editAssignments.bind(this))
             })
@@ -84,11 +87,14 @@ class Assignments {
 
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
     .then((json)=>{
+      const div=document.createElement('div')
+      div.className='col-sm-6'
+      document.getElementById(`${json.course_id}`).appendChild(div)
       const assignmentContainer=document.createElement('div')
-      document.getElementById(`${json.course_id}`).appendChild(assignmentContainer)
+      div.appendChild(assignmentContainer)
       this.assignment=new Assignment(json)
       assignmentContainer.innerHTML=this.assignment.render()
-      assignmentContainer.className='assignment-container col-sm-5 '
+      assignmentContainer.className='assignment-container'
       const deltBtn=document.createElement('button')
       assignmentContainer.appendChild(deltBtn)
       deltBtn.innerText='DELETE'
@@ -114,6 +120,7 @@ class Assignments {
     const description=updatedCard.querySelector('.assignment-description').innerText
     const grade=updatedCard.querySelector('.assignment-grade').innerText
     const deadline=updatedCard.querySelector('.assignment-deadline').innerText
+    debugger
     this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
 
   }
@@ -125,7 +132,7 @@ class Assignments {
     {
       this.adapter.deleteAssignments(e.target.getAttribute("assignment-id"))
       .then((json)=>{
-        e.target.parentElement.remove()
+        e.target.parentElement.parentElement.remove()
       })
     }
   }
@@ -143,6 +150,7 @@ class Assignments {
 
   editableAssignment(){
     const assignmentEditables=document.querySelectorAll('.editable-assignment')
+    const deadlineEditable=document.querySelectorAll('.editable-deadline')
     assignmentEditables.forEach(item=>{
       item.addEventListener('dblclick',(e)=>{
         e.target.contentEditable=true
@@ -152,6 +160,17 @@ class Assignments {
         e.target.contentEditable=false
         e.target.classList.remove("edit")
       })
+    })
+    deadlineEditable.forEach((item)=>{
+      item.addEventListener('dblclick',(e)=>{
+        e.target.innerHTML=`<input type="date" class="deadline">`
+        const deadlineInput=e.target.querySelector('input')
+        deadlineInput.addEventListener('blur',(e)=>{
+          e.target.parentElement.innerHTML=e.target.value
+        })
+
+      })
+
     })
   }
 

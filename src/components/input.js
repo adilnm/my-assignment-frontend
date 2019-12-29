@@ -33,9 +33,12 @@ class Input {
     submitBtn.type="submit"
   }
   newAssignment(divContainer, courseIdVal){
+    const div=document.createElement('div')
+    divContainer.appendChild(div)
+    div.className='col-sm-6'
     const inputBox=document.createElement('form')
-    divContainer.appendChild(inputBox)
-    inputBox.className='assignment-form col-sm-5 '
+    div.appendChild(inputBox)
+    inputBox.className='assignment-form '
       inputBox.innerHTML=`<h1>Add a new assignment</h1>`
 
       //add a hidden input with the course id value

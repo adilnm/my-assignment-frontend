@@ -41,6 +41,7 @@ class AssignmentsAdapter {
         category:category,
         description:description,
         grade:grade,
+        deadline:deadline
       };
      let configObj = {
        method: "PATCH",
