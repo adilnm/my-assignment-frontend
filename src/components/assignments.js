@@ -120,7 +120,6 @@ class Assignments {
     const description=updatedCard.querySelector('.assignment-description').innerText
     const grade=updatedCard.querySelector('.assignment-grade').innerText
     const deadline=updatedCard.querySelector('.assignment-deadline').innerText
-    debugger
     this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
 
   }
@@ -166,7 +165,7 @@ class Assignments {
         e.target.innerHTML=`<input type="date" class="deadline">`
         const deadlineInput=e.target.querySelector('input')
         deadlineInput.addEventListener('blur',(e)=>{
-          e.target.parentElement.innerHTML=e.target.value
+          e.target.parentElement.innerHTML=this.dateFormat(e.target.value)
         })
 
       })
@@ -239,6 +238,12 @@ class Assignments {
     const courseProfessor=div.querySelector('.course-professor').innerText
     const courseSemester=div.querySelector('.course-semester').innerText
     this.adapter.updateCourse(courseId, courseName, courseProfessor, courseSemester)
+  }
+
+  dateFormat(date){
+    var initial = date.split('-');
+    return [initial[1],initial[2],initial[0]].join('-')
+
   }
 
 
