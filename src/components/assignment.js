@@ -7,7 +7,6 @@ class Assignment {
     this.description=assignmentJson.description
     this.submitted=assignmentJson.submitted
     this.grade=assignmentJson.grade
-
   }
 
     render(){

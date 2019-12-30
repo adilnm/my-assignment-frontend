@@ -44,12 +44,14 @@ class Assignments {
 
               assignmentContainer.className='assignment-container'
               assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
-              const checked=document.querySelector('.assignment-submission')[0].checked
-              if (checked) {
-                const badge=assignmentContainer.querySelector('.badge')
-                badge.className='badge badge-success'
-                badge.innerText='SUBMITTED'
-              }
+
+              this.submissionCheck(assignmentContainer)
+
+              // if (checked) {
+              //   const badge=assignmentContainer.querySelector('.badge')
+              //   badge.className='badge badge-success'
+              //   badge.innerText='SUBMITTED'
+              // }
               const deltBtn=document.createElement('button')
               assignmentContainer.appendChild(deltBtn)
               deltBtn.innerText='DELETE'
@@ -94,7 +96,6 @@ class Assignments {
     const assignmentGrade=e.target.querySelector('.grade').value
     const courseId=e.target.querySelector('#course-id').value
     const deadline=e.target.querySelector('.deadline').value
-
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
     .then((json)=>{
       const div=document.createElement('div')
@@ -130,6 +131,7 @@ class Assignments {
     const description=updatedCard.querySelector('.assignment-description').innerText
     const grade=updatedCard.querySelector('.assignment-grade').innerText
     const deadline=updatedCard.querySelector('.assignment-deadline').innerText
+    debugger
     this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
 
   }
@@ -254,6 +256,16 @@ class Assignments {
     var initial = date.split('-');
     return [initial[1],initial[2],initial[0]].join('-')
 
+  }
+
+  submissionCheck(container){
+    const checked=container.querySelector('.assignment-submission')[0]
+    if (this.assignment.submitted) {
+      checked.checked=true
+      const badge=container.querySelector('.badge')
+      badge.className='badge badge-success'
+      badge.innerText='ASSIGNMENT SUBMITTED'
+    }
   }
 
 

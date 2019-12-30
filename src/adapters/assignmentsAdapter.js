@@ -33,7 +33,7 @@ class AssignmentsAdapter {
 
   }
 
-  updateAssignments(assignmentId,name,category,description,grade,deadline){
+  updateAssignments(assignmentId,name,category,description,grade,deadline,submitted){
       let formData={
         id:assignmentId,
         name:name,
@@ -41,7 +41,9 @@ class AssignmentsAdapter {
         category:category,
         description:description,
         grade:grade,
-        deadline:deadline
+        deadline:deadline,
+        submitted:submitted
+
       };
      let configObj = {
        method: "PATCH",
