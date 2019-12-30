@@ -2,10 +2,11 @@ body{
   font-family: Georgia;
 }
 .course-container{
+  background-color: #e6f0ff;
   border-radius: 5px;
   margin: 20px;
   position: relative;
-  background: #fbfbfb;
+  /* background: #fbfbfb; */
   text-align: center;
   border: 1px solid silver;
   padding: 25px 15px;
@@ -47,4 +48,8 @@ body{
 
 button{
   margin: 20px;
+}
+
+.card-header{
+  background-color: #00b3b3;
 }

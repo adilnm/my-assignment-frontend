@@ -40,7 +40,8 @@ class Assignments {
               assignmentContainer.innerHTML=this.assignment.render()
               const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
               const remaining=new CountDown(deadlineDate)
-              assignmentContainer.innerHTML+=remaining.daysRemaining()
+              assignmentContainer.prepend(remaining.daysRemaining())
+        
               assignmentContainer.className='assignment-container'
               assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
               const deltBtn=document.createElement('button')

@@ -19,7 +19,31 @@ class CountDown {
 
 
   // Output the result in an element with id="demo"
-  return days;
+  const span=document.createElement('span')
+
+  if (days>3) {
+    span.className="badge badge-primary"
+    span.innerText=days+" days remaining"
+  }
+  else if (days<=3 && days>1) {
+    span.className="badge badge-warning"
+    span.innerText=days+" days remaining"
+  }
+  else if (days<=1 && days>0) {
+    span.className="badge badge-danger"
+    span.innerText=days+" day remaining"
+  }
+
+  else if (days==0) {
+    span.className="badge badge-danger"
+    span.innerText="Less than one day remaining"
+  }
+  else {
+    span.className="badge badge-secondary"
+    span.innerText="Past due date"
+  }
+
+  return span;
 
   // If the count down is over, write some text
   // if (distance < 0) {
