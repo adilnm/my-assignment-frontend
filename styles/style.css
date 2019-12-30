@@ -2,7 +2,7 @@ body{
   font-family: Georgia;
 }
 .course-container{
-  background-color: #e6f0ff;
+  background-color:  #e6f7ff;
   border-radius: 5px;
   margin: 20px;
   position: relative;
@@ -17,11 +17,11 @@ body{
   border-radius: 5px;
   /* margin: 20px; */
   position: relative;
-  background: #fbfbfb;
   text-align: center;
   border: 1px solid silver;
   padding: 25px 15px;
   margin-bottom: 45px;
+  background-color: #fff3e6;
 }
 
 .assignment-form{
@@ -51,5 +51,6 @@ button{
 }
 
 .card-header{
-  background-color: #00b3b3;
+  background-color: #ffa94d;
+  border-radius: 500px;
 }

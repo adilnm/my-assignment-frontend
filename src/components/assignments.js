@@ -41,9 +41,15 @@ class Assignments {
               const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
               const remaining=new CountDown(deadlineDate)
               assignmentContainer.prepend(remaining.daysRemaining())
-        
+
               assignmentContainer.className='assignment-container'
               assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
+              const checked=document.querySelector('.assignment-submission')[0].checked
+              if (checked) {
+                const badge=assignmentContainer.querySelector('.badge')
+                badge.className='badge badge-success'
+                badge.innerText='SUBMITTED'
+              }
               const deltBtn=document.createElement('button')
               assignmentContainer.appendChild(deltBtn)
               deltBtn.innerText='DELETE'
