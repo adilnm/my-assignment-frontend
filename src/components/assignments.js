@@ -113,13 +113,13 @@ class Assignments {
       const deltBtn=document.createElement('button')
       assignmentContainer.appendChild(deltBtn)
       deltBtn.innerText='DELETE'
-      deltBtn.className='btn btn-danger btn-lg'
+      deltBtn.className='btn btn-outline-danger btn-lg'
       deltBtn.setAttribute("Assignment-id", json.id)
       deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
       const editBtn=document.createElement('button')
       assignmentContainer.appendChild(editBtn)
       editBtn.innerText='UPDATE'
-      editBtn.className='btn btn-info btn-lg'
+      editBtn.className='btn btn-outline-primary btn-lg'
       editBtn.setAttribute("Assignment-id", json.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
     }).then(this.editableAssignment.bind(this))
@@ -139,7 +139,19 @@ class Assignments {
 
 
     this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline,submitted)
-
+    .then(json=>{
+      if (json.submitted) {
+        const badge=updatedCard.querySelector('.badge')
+        badge.className='badge badge-success'
+        badge.innerText='ASSIGNMENT SUBMITTED'
+      }
+      else {
+        const deadlineDate=updatedCard.querySelector('.assignment-deadline').innerText
+        const remaining=new CountDown(deadlineDate)
+        updatedCard.querySelector('.badge').remove()
+        updatedCard.prepend(remaining.daysRemaining())
+      }
+    })
   }
 
   deleteAssignments(e){
