@@ -5,7 +5,7 @@ class Input {
     divContainer.appendChild(courseBox)
     courseBox.className='col-sm-12'
     courseBox.id='course-form'
-    courseBox.innerHTML=`<h1>Add a New Course</h1>`
+    courseBox.innerHTML=`<h1 class="card-header">Add a New Course</h1>`
 
     const nameInput=document.createElement('input')
     courseBox.appendChild(nameInput)
@@ -35,55 +35,58 @@ class Input {
   newAssignment(divContainer, courseIdVal){
     const div=document.createElement('div')
     divContainer.appendChild(div)
-    div.className='col-sm-6'
+    div.className='col-sm-6 container'
     const inputBox=document.createElement('form')
     div.appendChild(inputBox)
-    inputBox.className='assignment-form '
-      inputBox.innerHTML=`<h1>Add a new assignment</h1>`
-
+    inputBox.className='assignment-form row justify-content-md-center'
+    inputBox.innerHTML=`<h1 class="card-header">Add a New Assignment</h1>`
+    const div2=document.createElement('div')
+    div2.className="col-sm-8 center"
+    inputBox.appendChild(div2)
       //add a hidden input with the course id value
       const courseId=document.createElement('input')
-      inputBox.appendChild(courseId)
+      div2.appendChild(courseId)
       courseId.type="hidden"
       courseId.value=courseIdVal
       courseId.id="course-id"
 
       const nameInput=document.createElement('input')
-      inputBox.appendChild(nameInput)
+      div2.appendChild(nameInput)
       nameInput.type="text"
       nameInput.placeholder="Name"
-      nameInput.className='name'
-      inputBox.innerHTML+='<br>'
+      nameInput.className='name form-control form-control-lg'
+      div2.innerHTML+='<br>'
 
       const categoryInput=document.createElement('input')
-      inputBox.appendChild(categoryInput)
+      div2.appendChild(categoryInput)
       categoryInput.type="text"
       categoryInput.placeholder="Category"
-      categoryInput.className='category'
-      inputBox.innerHTML+='<br>'
+      categoryInput.className='category form-control form-control-lg'
+      div2.innerHTML+='<br>'
 
       const descriptionInput=document.createElement('textarea')
-      inputBox.appendChild(descriptionInput)
+      div2.appendChild(descriptionInput)
       descriptionInput.placeholder="Description"
-      descriptionInput.className='description'
-      inputBox.innerHTML+='<br>'
+      descriptionInput.className='description form-control form-control-lg'
+      div2.innerHTML+='<br>'
 
       const gradeInput=document.createElement('input')
-      inputBox.appendChild(gradeInput)
+      div2.appendChild(gradeInput)
       gradeInput.type="text"
-      gradeInput.className='grade'
+      gradeInput.className='grade form-control form-control-lg'
       gradeInput.placeholder="Grade"
-      inputBox.innerHTML+='<br>'
+      div2.innerHTML+='<br>'
 
       const deadlineInput=document.createElement('input')
-      inputBox.appendChild(deadlineInput)
+      div2.appendChild(deadlineInput)
       deadlineInput.type="date"
-      deadlineInput.className='deadline'
-      inputBox.innerHTML+='<br>'
+      deadlineInput.className='deadline form-control form-control-lg'
+      div2.innerHTML+='<br>'
 
       const submitBtn=document.createElement('input')
-      inputBox.appendChild(submitBtn)
+      div2.appendChild(submitBtn)
       submitBtn.type="submit"
+      submitBtn.className="btn btn-primary btn-lg"
 
   }
 }
