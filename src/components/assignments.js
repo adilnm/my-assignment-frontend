@@ -38,12 +38,12 @@ class Assignments {
               div.appendChild(assignmentContainer)
               this.assignment=new Assignment(assignmentItems)
               assignmentContainer.innerHTML=this.assignment.render()
+              assignmentContainer.className='assignment-container'
+              assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
+
               const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
               const remaining=new CountDown(deadlineDate)
               assignmentContainer.prepend(remaining.daysRemaining())
-
-              assignmentContainer.className='assignment-container'
-              assignmentContainer.setAttribute("Assignment-id", assignmentItems.id)
 
               this.submissionCheck(assignmentContainer)
 
@@ -106,6 +106,10 @@ class Assignments {
       this.assignment=new Assignment(json)
       assignmentContainer.innerHTML=this.assignment.render()
       assignmentContainer.className='assignment-container'
+
+      const remaining=new CountDown(deadline)
+      assignmentContainer.prepend(remaining.daysRemaining())
+
       const deltBtn=document.createElement('button')
       assignmentContainer.appendChild(deltBtn)
       deltBtn.innerText='DELETE'
@@ -131,8 +135,10 @@ class Assignments {
     const description=updatedCard.querySelector('.assignment-description').innerText
     const grade=updatedCard.querySelector('.assignment-grade').innerText
     const deadline=updatedCard.querySelector('.assignment-deadline').innerText
-    debugger
-    this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline)
+    const submitted=e.target.parentElement.querySelector('.assignment-submission')[0].checked
+
+
+    this.adapter.updateAssignments(assignmentId, name, category, description,grade,deadline,submitted)
 
   }
 
