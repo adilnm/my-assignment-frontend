@@ -3,35 +3,47 @@ class Input {
   newCourse(divContainer){
     const courseBox=document.createElement('form')
     divContainer.appendChild(courseBox)
-    courseBox.className='col-sm-12'
+    courseBox.className='col-sm-12 justify-content-md-center'
     courseBox.id='course-form'
     courseBox.innerHTML=`<h1 class="card-header">Add a New Course</h1>`
+    const div2=document.createElement('div')
+    div2.className="col-sm-6 center"
+    courseBox.appendChild(div2)
+
+    const div3=document.createElement('div')
+    div3.className='errors'
+    div2.appendChild(div3)
 
     const nameInput=document.createElement('input')
-    courseBox.appendChild(nameInput)
+    div2.appendChild(nameInput)
     nameInput.type="text"
     nameInput.placeholder="Name"
     nameInput.id='course-name'
-    courseBox.innerHTML+='<br>'
+    nameInput.className='name form-control form-control-lg'
+    div2.innerHTML+='<br>'
 
     const profrssorInput=document.createElement('input')
-    courseBox.appendChild(profrssorInput)
+    div2.appendChild(profrssorInput)
     profrssorInput.type="text"
     profrssorInput.placeholder="Professor"
     profrssorInput.id='professor'
-    courseBox.innerHTML+='<br>'
+    profrssorInput.className='name form-control form-control-lg'
+    div2.innerHTML+='<br>'
 
     const semesterInput=document.createElement('input')
-    courseBox.appendChild(semesterInput)
+    div2.appendChild(semesterInput)
     semesterInput.type="text"
     semesterInput.placeholder="Semester"
     semesterInput.id='semester'
-    courseBox.innerHTML+='<br>'
+    semesterInput.className='name form-control form-control-lg'
+    div2.innerHTML+='<br>'
 
     const submitBtn=document.createElement('input')
-    courseBox.appendChild(submitBtn)
+    div2.appendChild(submitBtn)
     submitBtn.type="submit"
+    submitBtn.className="btn btn-primary btn-lg"
   }
+
   newAssignment(divContainer, courseIdVal){
     const div=document.createElement('div')
     divContainer.appendChild(div)
@@ -43,6 +55,9 @@ class Input {
     const div2=document.createElement('div')
     div2.className="col-sm-8 center"
     inputBox.appendChild(div2)
+    const div3=document.createElement('div')
+    div3.className='errors'
+    div2.appendChild(div3)
       //add a hidden input with the course id value
       const courseId=document.createElement('input')
       div2.appendChild(courseId)

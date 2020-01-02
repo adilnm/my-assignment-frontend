@@ -18,7 +18,7 @@ td{
   font-size: 40px;
   font-weight: bold;
 }
-.course-container{
+.course-container {
   background-color:  #a3a3c2;
   border-radius: 10px;
   position: relative;
@@ -28,7 +28,18 @@ td{
   margin-bottom: 45px;
 }
 
-.assignment-container{
+#course-form{
+  border-radius: 5px;
+  margin: 20px;
+  position: relative;
+  background: #fff3e6;
+  text-align: center;
+  border: 1px solid silver;
+  padding: 25px 15px;
+  margin-bottom: 45px;
+}
+
+.assignment-container {
   border-radius: 10px;
   /* margin: 20px; */
   position: relative;

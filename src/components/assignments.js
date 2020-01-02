@@ -6,6 +6,7 @@ class Assignments {
     // this.getAssignments()
     this.initBindingsAndEventListeners()
     // this.countDown=new CountDown('01-30-2019')
+    this.errors=new Error()
 
 
   }
@@ -99,31 +100,53 @@ class Assignments {
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
 
     .then((json)=>{
-      // console.log(json)
-      const div=document.createElement('div')
-      div.className='col-sm-6'
-      document.getElementById(`${json.body.course_id}`).appendChild(div)
-      const assignmentContainer=document.createElement('div')
-      div.appendChild(assignmentContainer)
-      this.assignment=new Assignment(json.body)
-      assignmentContainer.innerHTML=this.assignment.render()
-      assignmentContainer.className='assignment-container'
+      if (json.status==200) {
+        // clear the errors box
+        e.target.querySelector('.errors').innerHTML=''
+        e.target.querySelector('.errors').classList.remove("alert");
+        e.target.querySelector('.errors').classList.remove("alert-danger");
+        const div=document.createElement('div')
+        div.className='col-sm-6'
+        document.getElementById(`${json.body.course_id}`).appendChild(div)
+        const assignmentContainer=document.createElement('div')
+        div.appendChild(assignmentContainer)
+        this.assignment=new Assignment(json.body)
+        assignmentContainer.innerHTML=this.assignment.render()
+        assignmentContainer.className='assignment-container'
 
-      const remaining=new CountDown(deadline)
-      assignmentContainer.prepend(remaining.daysRemaining())
+        const remaining=new CountDown(deadline)
+        assignmentContainer.prepend(remaining.daysRemaining())
 
-      const deltBtn=document.createElement('button')
-      assignmentContainer.appendChild(deltBtn)
-      deltBtn.innerText='DELETE'
-      deltBtn.className='btn btn-outline-danger btn-lg'
-      deltBtn.setAttribute("Assignment-id", json.body.id)
-      deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
-      const editBtn=document.createElement('button')
-      assignmentContainer.appendChild(editBtn)
-      editBtn.innerText='UPDATE'
-      editBtn.className='btn btn-outline-primary btn-lg'
-      editBtn.setAttribute("Assignment-id", json.body.id)
-      editBtn.addEventListener('click',this.editAssignments.bind(this))
+        const deltBtn=document.createElement('button')
+        assignmentContainer.appendChild(deltBtn)
+        deltBtn.innerText='DELETE'
+        deltBtn.className='btn btn-outline-danger btn-lg'
+        deltBtn.setAttribute("Assignment-id", json.body.id)
+        deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
+        const editBtn=document.createElement('button')
+        assignmentContainer.appendChild(editBtn)
+        editBtn.innerText='UPDATE'
+        editBtn.className='btn btn-outline-primary btn-lg'
+        editBtn.setAttribute("Assignment-id", json.body.id)
+        editBtn.addEventListener('click',this.editAssignments.bind(this))
+      }
+
+      else {
+        const errorContainer=e.target.querySelector('.errors')
+        // clear the errors box
+        errorContainer.innerHTML=''
+        e.target.querySelector('.errors').classList.remove("alert");
+        e.target.querySelector('.errors').classList.remove("alert-danger");
+        this.errors.displayErrors(json.body,errorContainer)
+
+
+
+      //   console.log(json.body);
+      //   for (var i in json.body) {
+      //     console.log(`${i} ${json.body[i][0]}`);
+      //   }
+       }
+
     }).then(this.editableAssignment.bind(this))
 
   }
@@ -171,7 +194,7 @@ class Assignments {
 
   courseForm(){
     const div=document.createElement('div')
-    div.className="col-sm-12 course-container "
+    div.className="col-sm-12 course-container container-fluid"
     this.divContainer.appendChild(div)
     this.input.newCourse(div)
     this.newCourseForm=document.querySelector('#course-form')
