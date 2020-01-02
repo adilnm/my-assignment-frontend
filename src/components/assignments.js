@@ -92,6 +92,8 @@ class Assignments {
     const assignmentGrade=e.target.querySelector('.grade').value
     const courseId=e.target.querySelector('#course-id').value
     const deadline=e.target.querySelector('.deadline').value
+    // clear the form after submission
+    e.target.reset()
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
 
     .then((json)=>{
@@ -243,6 +245,8 @@ class Assignments {
     const name=document.querySelector('#course-name').value
     const professor=document.querySelector('#professor').value
     const semester=document.querySelector('#semester').value
+    // clear the form after submission
+    e.target.reset()
     this.adapter.createCourses(name, professor, semester)
     .then((json)=>{
       if (json.status==200){
