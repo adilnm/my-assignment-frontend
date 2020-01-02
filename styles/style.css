@@ -4,6 +4,20 @@ body{
 #container{
   margin: 10px 10px;
 }
+
+.course-name{
+  font-size: 90px;
+  font-weight: bold;
+}
+
+td{
+  font-size: 25px;
+}
+
+.assignment-name{
+  font-size: 40px;
+  font-weight: bold;
+}
 .course-container{
   background-color:  #a3a3c2;
   border-radius: 10px;

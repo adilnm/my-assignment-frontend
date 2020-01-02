@@ -97,13 +97,15 @@ class Assignments {
     const courseId=e.target.querySelector('#course-id').value
     const deadline=e.target.querySelector('.deadline').value
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
+
     .then((json)=>{
+      // console.log(json)
       const div=document.createElement('div')
       div.className='col-sm-6'
-      document.getElementById(`${json.course_id}`).appendChild(div)
+      document.getElementById(`${json.body.course_id}`).appendChild(div)
       const assignmentContainer=document.createElement('div')
       div.appendChild(assignmentContainer)
-      this.assignment=new Assignment(json)
+      this.assignment=new Assignment(json.body)
       assignmentContainer.innerHTML=this.assignment.render()
       assignmentContainer.className='assignment-container'
 
@@ -114,13 +116,13 @@ class Assignments {
       assignmentContainer.appendChild(deltBtn)
       deltBtn.innerText='DELETE'
       deltBtn.className='btn btn-outline-danger btn-lg'
-      deltBtn.setAttribute("Assignment-id", json.id)
+      deltBtn.setAttribute("Assignment-id", json.body.id)
       deltBtn.addEventListener('click',this.deleteAssignments.bind(this))
       const editBtn=document.createElement('button')
       assignmentContainer.appendChild(editBtn)
       editBtn.innerText='UPDATE'
       editBtn.className='btn btn-outline-primary btn-lg'
-      editBtn.setAttribute("Assignment-id", json.id)
+      editBtn.setAttribute("Assignment-id", json.body.id)
       editBtn.addEventListener('click',this.editAssignments.bind(this))
     }).then(this.editableAssignment.bind(this))
 

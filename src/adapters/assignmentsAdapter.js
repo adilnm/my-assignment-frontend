@@ -29,7 +29,8 @@ class AssignmentsAdapter {
      };
 
      return fetch(this.assignmentUrl, configObj)
-      .then(res=>res.json())
+     // I created the data below inside the first promise to be able to save the res status and use it in the next promise.
+      .then(res=>res.json().then(data => ({status: res.status, body: data})))
 
   }
 
