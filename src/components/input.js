@@ -3,9 +3,9 @@ class Input {
   newCourse(divContainer){
     const courseBox=document.createElement('form')
     divContainer.appendChild(courseBox)
-    courseBox.className='col-sm-12 justify-content-md-center'
+    courseBox.className='row justify-content-md-center'
     courseBox.id='course-form'
-    courseBox.innerHTML=`<h1 class="card-header">Add a New Course</h1>`
+    courseBox.innerHTML=`<h1 class="card-header col-sm-12">Add a New Course</h1>`
     const div2=document.createElement('div')
     div2.className="col-sm-6 center"
     courseBox.appendChild(div2)
