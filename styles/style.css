@@ -31,6 +31,7 @@ td{
 #course-form{
   border-radius: 5px;
   position: relative;
+  margin: 10px;
   background: #fff3e6;
   text-align: center;
   border: 1px solid silver;

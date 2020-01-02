@@ -79,7 +79,7 @@ class AssignmentsAdapter {
   };
 
  return fetch(this.courseUrl, configObj)
-  .then(res=>res.json())
+  .then(res=>res.json().then(data => ({status: res.status, body: data})))
 }
 
   deleteCourses(id){

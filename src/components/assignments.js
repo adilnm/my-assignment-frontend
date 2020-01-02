@@ -48,11 +48,6 @@ class Assignments {
 
               this.submissionCheck(assignmentContainer)
 
-              // if (checked) {
-              //   const badge=assignmentContainer.querySelector('.badge')
-              //   badge.className='badge badge-success'
-              //   badge.innerText='SUBMITTED'
-              // }
               const deltBtn=document.createElement('button')
               assignmentContainer.appendChild(deltBtn)
               deltBtn.innerText='DELETE'
@@ -250,27 +245,41 @@ class Assignments {
     const semester=document.querySelector('#semester').value
     this.adapter.createCourses(name, professor, semester)
     .then((json)=>{
-      const courseId=json.id
-      const courseContainer=document.createElement('div')
-      courseContainer.className="col-sm-12 course-container "
-      this.divContainer.appendChild(courseContainer)
-      const course=new Course(json,courseId)
-      courseContainer.innerHTML=course.render()
-      const assignmentsContainer=document.createElement('div')
-      courseContainer.appendChild(assignmentsContainer)
-      assignmentsContainer.className="assignments-containers row"
-      assignmentsContainer.id=json.id
-      this.input.newAssignment(assignmentsContainer,courseId)
-      const courseDeltBtn=document.createElement('button')
-      courseContainer.appendChild(courseDeltBtn)
-      courseDeltBtn.className='delete-course btn btn-danger btn-lg'
-      courseDeltBtn.innerText='DELETE COURSE'
-      courseDeltBtn.setAttribute("course-id", courseId)
-      courseDeltBtn.addEventListener('click', this.deleteCourse.bind(this))
-      const assignmentsForm=document.querySelectorAll('.assignment-form')
-      // select the assignment form of the last added course
-      const newAssignmentForm=assignmentsForm[assignmentsForm.length-1]
-      newAssignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+      if (json.status==200){
+        e.target.querySelector('.errors').innerHTML=''
+        e.target.querySelector('.errors').classList.remove("alert");
+        e.target.querySelector('.errors').classList.remove("alert-danger");
+        const courseId=json.body.id
+        const courseContainer=document.createElement('div')
+        courseContainer.className="col-sm-12 course-container "
+        this.divContainer.appendChild(courseContainer)
+        const course=new Course(json.body,courseId)
+        courseContainer.innerHTML=course.render()
+        const assignmentsContainer=document.createElement('div')
+        courseContainer.appendChild(assignmentsContainer)
+        assignmentsContainer.className="assignments-containers row"
+        assignmentsContainer.id=json.body.id
+        this.input.newAssignment(assignmentsContainer,courseId)
+        const courseDeltBtn=document.createElement('button')
+        courseContainer.appendChild(courseDeltBtn)
+        courseDeltBtn.className='delete-course btn btn-danger btn-lg'
+        courseDeltBtn.innerText='DELETE COURSE'
+        courseDeltBtn.setAttribute("course-id", courseId)
+        courseDeltBtn.addEventListener('click', this.deleteCourse.bind(this))
+        const assignmentsForm=document.querySelectorAll('.assignment-form')
+        // select the assignment form of the last added course
+        const newAssignmentForm=assignmentsForm[assignmentsForm.length-1]
+        newAssignmentForm.addEventListener('submit',this.createAssignments.bind(this))
+      }
+      else {
+        const errorContainer=e.target.querySelector('.errors')
+        // clear the errors box
+        errorContainer.innerHTML=''
+        e.target.querySelector('.errors').classList.remove("alert");
+        e.target.querySelector('.errors').classList.remove("alert-danger");
+        debugger
+        this.errors.displayErrors(json.body,errorContainer)
+      }
     }).then(this.editableCourse.bind(this))
   }
 
