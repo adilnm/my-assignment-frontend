@@ -44,7 +44,9 @@ class Assignments {
 
               const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
               const remaining=new CountDown(deadlineDate)
-              assignmentContainer.prepend(remaining.daysRemaining())
+              const h2=document.createElement('h2')
+              assignmentContainer.prepend(h2)
+              h2.appendChild(remaining.daysRemaining())
 
               this.submissionCheck(assignmentContainer)
 
@@ -91,7 +93,7 @@ class Assignments {
     const assignmentDescription=e.target.querySelector('.description').value
     const assignmentGrade=e.target.querySelector('.grade').value
     const courseId=e.target.querySelector('#course-id').value
-    const deadline=e.target.querySelector('.deadline').value
+    const deadline=this.dateFormat(e.target.querySelector('.deadline').value)
     // clear the form after submission
     e.target.reset()
     this.adapter.createAssignments(assignmentName, assignmentCategory, assignmentDescription,assignmentGrade,courseId, deadline)
@@ -104,7 +106,7 @@ class Assignments {
         e.target.querySelector('.errors').classList.remove("alert-danger");
         const div=document.createElement('div')
         div.className='col-sm-6'
-        document.getElementById(`${json.body.course_id}`).appendChild(div)
+        document.getElementById(`${json.body.course_id}`).insertBefore(div, e.target.parentElement)
         const assignmentContainer=document.createElement('div')
         div.appendChild(assignmentContainer)
         this.assignment=new Assignment(json.body)
@@ -112,7 +114,9 @@ class Assignments {
         assignmentContainer.className='assignment-container'
 
         const remaining=new CountDown(deadline)
-        assignmentContainer.prepend(remaining.daysRemaining())
+        const h2=document.createElement('h2')
+        assignmentContainer.prepend(h2)
+        h2.prepend(remaining.daysRemaining())
 
         const deltBtn=document.createElement('button')
         assignmentContainer.appendChild(deltBtn)
@@ -164,14 +168,16 @@ class Assignments {
     .then(json=>{
       if (json.submitted) {
         const badge=updatedCard.querySelector('.badge')
-        badge.className='badge badge-success'
+        badge.className='badge badge-pill badge-success'
         badge.innerText='ASSIGNMENT SUBMITTED'
       }
       else {
         const deadlineDate=updatedCard.querySelector('.assignment-deadline').innerText
         const remaining=new CountDown(deadlineDate)
-        updatedCard.querySelector('.badge').remove()
-        updatedCard.prepend(remaining.daysRemaining())
+        updatedCard.querySelector('.badge').parentElement.remove()
+        const h2=document.createElement('h2')
+        updatedCard.prepend(h2)
+        h2.prepend(remaining.daysRemaining())
       }
     })
   }
@@ -212,6 +218,7 @@ class Assignments {
         e.target.classList.remove("edit")
       })
     })
+
     deadlineEditable.forEach((item)=>{
       item.addEventListener('dblclick',(e)=>{
         e.target.innerHTML=`<input type="date" class="deadline">`
@@ -256,7 +263,8 @@ class Assignments {
         const courseId=json.body.id
         const courseContainer=document.createElement('div')
         courseContainer.className="col-sm-12 course-container "
-        this.divContainer.appendChild(courseContainer)
+        
+        this.divContainer.insertBefore(courseContainer,e.target.parentElement)
         const course=new Course(json.body,courseId)
         courseContainer.innerHTML=course.render()
         const assignmentsContainer=document.createElement('div')
@@ -319,7 +327,7 @@ class Assignments {
     if (this.assignment.submitted) {
       checked.checked=true
       const badge=container.querySelector('.badge')
-      badge.className='badge badge-success'
+      badge.className='badge badge-pill badge-success'
       badge.innerText='ASSIGNMENT SUBMITTED'
     }
   }

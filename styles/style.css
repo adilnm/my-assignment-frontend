@@ -23,7 +23,7 @@ td{
   border-radius: 10px;
   position: relative;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #666699;
   padding: 25px 15px;
   margin-bottom: 45px;
 }
@@ -44,19 +44,19 @@ td{
   /* margin: 20px; */
   position: relative;
   /* text-align: center; */
-  border: 1px solid #ffa94d;
+  border: 2px solid #ffa94d;
   padding: 25px 15px;
   margin-bottom: 45px;
   background-color: #fff3e6;
 }
 
 .assignment-form{
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 20px;
   position: relative;
   background: #fff3e6;
   text-align: center;
-  border: 1px solid silver;
+  border: 2px solid #ffa94d;
   padding: 25px 15px;
   margin-bottom: 45px;
 }
@@ -83,4 +83,12 @@ button{
 
 .name{
   margin-top: 10px;
+}
+
+.errors{
+  text-align: left;
+}
+
+td{
+  background-color: #ffffcc;
 }

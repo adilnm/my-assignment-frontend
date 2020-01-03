@@ -7,7 +7,6 @@ class CountDown {
     // Set the date we're counting down to
     const countDownDate = new Date(this.date).getTime();
 
-    // Update the count down every 1 second
   // Get today's date and time
   const now = new Date().getTime();
 
@@ -22,24 +21,24 @@ class CountDown {
   const span=document.createElement('span')
 
   if (days>3) {
-    span.className="badge badge-primary"
+    span.className="badge badge-pill badge-primary"
     span.innerText=days+" days remaining"
   }
   else if (days<=3 && days>1) {
-    span.className="badge badge-warning"
+    span.className="badge badge-pill badge-warning"
     span.innerText=days+" days remaining"
   }
   else if (days<=1 && days>0) {
-    span.className="badge badge-danger"
+    span.className="badge badge-pill badge-danger"
     span.innerText=days+" day remaining"
   }
 
   else if (days==0) {
-    span.className="badge badge-danger"
+    span.className="badge badge-pill badge-danger"
     span.innerText="Less than one day remaining"
   }
-  else {
-    span.className="badge badge-secondary"
+  else{
+    span.className="badge badge-pill badge-secondary"
     span.innerText="Past due date"
   }
 

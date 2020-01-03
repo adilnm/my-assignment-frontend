@@ -85,17 +85,17 @@ class Input {
       descriptionInput.className='description form-control form-control-lg'
       div2.innerHTML+='<br>'
 
+      const deadlineInput=document.createElement('input')
+      div2.appendChild(deadlineInput)
+      deadlineInput.type="date"
+      deadlineInput.className='deadline form-control form-control-lg'
+      div2.innerHTML+='<br>'
+
       const gradeInput=document.createElement('input')
       div2.appendChild(gradeInput)
       gradeInput.type="text"
       gradeInput.className='grade form-control form-control-lg'
       gradeInput.placeholder="Grade"
-      div2.innerHTML+='<br>'
-
-      const deadlineInput=document.createElement('input')
-      div2.appendChild(deadlineInput)
-      deadlineInput.type="date"
-      deadlineInput.className='deadline form-control form-control-lg'
       div2.innerHTML+='<br>'
 
       const submitBtn=document.createElement('input')
