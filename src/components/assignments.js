@@ -3,9 +3,7 @@ class Assignments {
     this.adapter=new AssignmentsAdapter()
     this.getCourses()
     this.input=new Input()
-    // this.getAssignments()
     this.initBindingsAndEventListeners()
-    // this.countDown=new CountDown('01-30-2019')
     this.errors=new Error()
 
 
@@ -13,8 +11,6 @@ class Assignments {
   initBindingsAndEventListeners(){
      this.divContainer=document.querySelector('#container')
 
-     // this.assignmentForm=document.querySelector('.assignments-containers')
-     // this.assignmentForm.addEventListener('submit',this.createAssignments(e))
   }
 
   getCourses(){
@@ -133,6 +129,7 @@ class Assignments {
       }
 
       else {
+        debugger
         const errorContainer=e.target.querySelector('.errors')
         // clear the errors box
         errorContainer.innerHTML=''
@@ -140,13 +137,7 @@ class Assignments {
         e.target.querySelector('.errors').classList.remove("alert-danger");
         this.errors.displayErrors(json.body,errorContainer)
 
-
-
-      //   console.log(json.body);
-      //   for (var i in json.body) {
-      //     console.log(`${i} ${json.body[i][0]}`);
-      //   }
-       }
+      }
 
     }).then(this.editableAssignment.bind(this))
 
@@ -263,7 +254,7 @@ class Assignments {
         const courseId=json.body.id
         const courseContainer=document.createElement('div')
         courseContainer.className="col-sm-12 course-container "
-        
+
         this.divContainer.insertBefore(courseContainer,e.target.parentElement)
         const course=new Course(json.body,courseId)
         courseContainer.innerHTML=course.render()
