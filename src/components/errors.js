@@ -1,7 +1,4 @@
 class Error {
-  constructor() {
-
-  }
 
   displayErrors(errors,container){
     const arr=[]

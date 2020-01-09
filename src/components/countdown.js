@@ -14,7 +14,7 @@ class CountDown {
   const distance = countDownDate - now;
 
   // Time calculations for days
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24))+1;
 
 
   // Output the result in an element with id="demo"
