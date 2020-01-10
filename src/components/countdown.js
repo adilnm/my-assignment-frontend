@@ -16,7 +16,6 @@ class CountDown {
   // Time calculations for days
   const days = Math.floor(distance / (1000 * 60 * 60 * 24))+1;
 
-
   // Output the result in an element with id="demo"
   const span=document.createElement('span')
 
@@ -24,11 +23,11 @@ class CountDown {
     span.className="badge badge-pill badge-primary"
     span.innerText=days+" days remaining"
   }
-  else if (days<=3 && days>1) {
+  else if (days>1) {
     span.className="badge badge-pill badge-warning"
     span.innerText=days+" days remaining"
   }
-  else if (days<=1 && days>0) {
+  else if (days>0) {
     span.className="badge badge-pill badge-danger"
     span.innerText=days+" day remaining"
   }

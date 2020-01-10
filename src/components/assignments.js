@@ -10,7 +10,6 @@ class Assignments {
   }
   initBindingsAndEventListeners(){
     this.divContainer=document.querySelector('#container')
-
   }
 
   getCourses(){
@@ -22,13 +21,19 @@ class Assignments {
         this.divContainer.appendChild(courseContainer)
 
         const course=new Course(courseItem.attributes,courseItem.id)
-
-
         courseContainer.innerHTML=course.render()
+        const sortBtn=document.createElement('button')
+        courseContainer.appendChild(sortBtn)
+        sortBtn.innerHTML='sort'
+        sortBtn.id='sort'
+        sortBtn.setAttribute("course-id", courseItem.id)
+
+
         const assignmentsContainer=document.createElement('div')
         courseContainer.appendChild(assignmentsContainer)
         assignmentsContainer.className="assignments-containers row"
         assignmentsContainer.id=courseItem.id
+
         courseItem.attributes.assignments.forEach((assignmentItems)=>{
           const div=document.createElement('div')
           div.className='col-sm-6'
@@ -49,18 +54,60 @@ class Assignments {
 
         })
         const courseId=courseItem.id
-        //display the add assignmrnt form
+        //display the add assignment form
         this.input.newAssignment(assignmentsContainer,courseId)
         this.deltCourseBtn(courseContainer, courseId)
 
       })
     }).then(()=>{
+      const sortBtn=document.querySelector('#sort')
+      const courseId=sortBtn.getAttribute("course-id")
+      sortBtn.addEventListener('click', (e)=>{
+        this.adapter.getCourse(courseId)
+          .then(json=>{
+            const courseaAssignments=json.data.attributes.assignments
+            courseaAssignments.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))
+            const assignmentsContainer=document.getElementById(courseId)
+            assignmentsContainer.innerHTML=''
+            courseaAssignments.forEach((assignmentItems)=>{
+
+
+              const div=document.createElement('div')
+              div.className='col-sm-6'
+              assignmentsContainer.appendChild(div)
+
+              const assignmentContainer=document.createElement('div')
+
+              this.assignmentContent(div, assignmentContainer, assignmentItems)
+
+              const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
+
+              this.remainingDays(deadlineDate, assignmentContainer)
+
+              this.submissionCheck(assignmentContainer)
+
+              this.deleteBtn(assignmentContainer, assignmentItems)
+              this.editBtn(assignmentContainer, assignmentItems)
+            })
+            this.input.newAssignment(assignmentsContainer,courseId)
+          }).then(()=>{
+            const assignmentForms=document.querySelectorAll('.assignment-form')
+            // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
+            assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
+          }).then(this.editableAssignment.bind(this))
+          .then(this.editableCourse.bind(this))
+          .then(this.courseForm.bind(this))
+      })
+
+    })
+    .then(()=>{
       const assignmentForms=document.querySelectorAll('.assignment-form')
       // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
       assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
     }).then(this.editableAssignment.bind(this))
     .then(this.editableCourse.bind(this))
     .then(this.courseForm.bind(this))
+
 
   }
 

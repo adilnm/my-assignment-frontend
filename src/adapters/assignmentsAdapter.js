@@ -9,6 +9,11 @@ class AssignmentsAdapter {
       .then(res=>res.json())
   }
 
+  getCourse(id){
+    return fetch(`${this.courseUrl}/${id}`)
+      .then(res=>res.json())
+  }
+
   createAssignments(name,category,description,grade,courseId, deadline){
 
       let formData={
