@@ -24,8 +24,8 @@ class Assignments {
         courseContainer.innerHTML=course.render()
         const sortBtn=document.createElement('button')
         courseContainer.appendChild(sortBtn)
-        sortBtn.innerHTML='sort'
-        sortBtn.id='sort'
+        sortBtn.innerHTML='Sort By Deadline'
+        sortBtn.className='sort btn btn-info'
         sortBtn.setAttribute("course-id", courseItem.id)
 
 
@@ -34,25 +34,7 @@ class Assignments {
         assignmentsContainer.className="assignments-containers row"
         assignmentsContainer.id=courseItem.id
 
-        courseItem.attributes.assignments.forEach((assignmentItems)=>{
-          const div=document.createElement('div')
-          div.className='col-sm-6'
-          assignmentsContainer.appendChild(div)
-
-          const assignmentContainer=document.createElement('div')
-
-          this.assignmentContent(div, assignmentContainer, assignmentItems)
-
-          const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
-
-          this.remainingDays(deadlineDate, assignmentContainer)
-
-          this.submissionCheck(assignmentContainer)
-
-          this.deleteBtn(assignmentContainer, assignmentItems)
-          this.editBtn(assignmentContainer, assignmentItems)
-
-        })
+        courseItem.attributes.assignments.forEach((assignmentItems)=>this.assignmentCard(assignmentItems,assignmentsContainer))
         const courseId=courseItem.id
         //display the add assignment form
         this.input.newAssignment(assignmentsContainer,courseId)
@@ -60,18 +42,19 @@ class Assignments {
 
       })
     }).then(()=>{
-      const sortBtn=document.querySelector('#sort')
-      sortBtn.addEventListener('click', this.deadlineSort.bind(this))
-
-    })
-    .then(()=>{
       const assignmentForms=document.querySelectorAll('.assignment-form')
       // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
       assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
     }).then(this.editableAssignment.bind(this))
     .then(this.editableCourse.bind(this))
     .then(this.courseForm.bind(this))
+    .then(()=>{
+      const sortBtn=document.querySelectorAll('.sort')
+      sortBtn.forEach(item=>{
+        item.addEventListener('click', this.deadlineSort.bind(this))
+      })
 
+    })
 
   }
 
@@ -178,7 +161,17 @@ class Assignments {
 
     deadlineEditable.forEach((item)=>{
       item.addEventListener('dblclick',(e)=>{
-        e.target.innerHTML=`<input type="date" class="deadline">`
+        const today=new Date()
+        let day=today.getDate()
+        let month=today.getMonth() + 1
+        if (day<10) {
+          day=`0${day}`
+        }
+        if (month<10) {
+          month=`0${month}`
+        }
+        const todayDate=`${today.getFullYear()}-${month}-${day}`
+        e.target.innerHTML=`<input type="date" value=${todayDate} class="deadline">`
         const deadlineInput=e.target.querySelector('input')
         deadlineInput.addEventListener('blur',(e)=>{
           e.target.parentElement.innerHTML=this.dateFormat(e.target.value)
@@ -331,6 +324,7 @@ class Assignments {
   }
 
   deadlineSort(e){
+
     const courseId=e.target.getAttribute("course-id")
     this.adapter.getCourse(courseId)
       .then(json=>{
@@ -338,34 +332,34 @@ class Assignments {
         courseaAssignments.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))
         const assignmentsContainer=document.getElementById(courseId)
         assignmentsContainer.innerHTML=''
-        courseaAssignments.forEach((assignmentItems)=>{
-
-
-          const div=document.createElement('div')
-          div.className='col-sm-6'
-          assignmentsContainer.appendChild(div)
-
-          const assignmentContainer=document.createElement('div')
-
-          this.assignmentContent(div, assignmentContainer, assignmentItems)
-
-          const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
-
-          this.remainingDays(deadlineDate, assignmentContainer)
-
-          this.submissionCheck(assignmentContainer)
-
-          this.deleteBtn(assignmentContainer, assignmentItems)
-          this.editBtn(assignmentContainer, assignmentItems)
-        })
+        courseaAssignments.forEach((assignmentItems)=>this.assignmentCard(assignmentItems,assignmentsContainer))
         this.input.newAssignment(assignmentsContainer,courseId)
-      }).then(()=>{
-        const assignmentForms=document.querySelectorAll('.assignment-form')
+        return assignmentsContainer;
+      }).then((assignmentsContainer)=>{
+        const assignmentForm=assignmentsContainer.querySelector('.assignment-form')
         // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
-        assignmentForms.forEach((form)=>form.addEventListener('submit',this.createAssignments.bind(this)))
+        assignmentForm.addEventListener('submit',this.createAssignments.bind(this))
       }).then(this.editableAssignment.bind(this))
-      .then(this.editableCourse.bind(this))
-      .then(this.courseForm.bind(this))
+  }
+
+  assignmentCard(content,assignmentsContainer){
+    const div=document.createElement('div')
+    div.className='col-sm-6'
+    assignmentsContainer.appendChild(div)
+
+    const assignmentContainer=document.createElement('div')
+
+    this.assignmentContent(div, assignmentContainer, content)
+
+    const deadlineDate=assignmentContainer.querySelector('.assignment-deadline').innerText
+
+    this.remainingDays(deadlineDate, assignmentContainer)
+
+    this.submissionCheck(assignmentContainer)
+
+    this.deleteBtn(assignmentContainer, content)
+    this.editBtn(assignmentContainer, content)
+
   }
 
 }
