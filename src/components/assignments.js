@@ -5,9 +5,8 @@ class Assignments {
     this.input=new Input()
     this.initBindingsAndEventListeners()
     this.errors=new Error()
-
-
   }
+
   initBindingsAndEventListeners(){
     this.divContainer=document.querySelector('#container')
   }
@@ -27,7 +26,6 @@ class Assignments {
         sortBtn.innerHTML='Sort By Deadline'
         sortBtn.className='sort btn btn-info'
         sortBtn.setAttribute("course-id", courseItem.id)
-
 
         const assignmentsContainer=document.createElement('div')
         courseContainer.appendChild(assignmentsContainer)
@@ -213,8 +211,13 @@ class Assignments {
         this.divContainer.insertBefore(courseContainer,e.target.parentElement)
 
         const course=new Course(json.body,courseId)
-
         courseContainer.innerHTML=course.render()
+        const sortBtn=document.createElement('button')
+        courseContainer.appendChild(sortBtn)
+        sortBtn.innerHTML='Sort By Deadline'
+        sortBtn.className='sort btn btn-info'
+        sortBtn.setAttribute("course-id", courseId)
+
         const assignmentsContainer=document.createElement('div')
         courseContainer.appendChild(assignmentsContainer)
         assignmentsContainer.className="assignments-containers row"
@@ -235,6 +238,12 @@ class Assignments {
         this.errors.displayErrors(json.body,errorContainer)
       }
     }).then(this.editableCourse.bind(this))
+    .then(()=>{
+      const sortBtn=document.querySelectorAll('.sort')
+      sortBtn.forEach(item=>{
+        item.addEventListener('click', this.deadlineSort.bind(this))
+      })
+      })
   }
 
   deleteCourse(e){
@@ -337,7 +346,6 @@ class Assignments {
         return assignmentsContainer;
       }).then((assignmentsContainer)=>{
         const assignmentForm=assignmentsContainer.querySelector('.assignment-form')
-        // if we make createAssignments an arrow function we won't need to bind because this keyword will be the Assignment object
         assignmentForm.addEventListener('submit',this.createAssignments.bind(this))
       }).then(this.editableAssignment.bind(this))
   }
@@ -361,5 +369,4 @@ class Assignments {
     this.editBtn(assignmentContainer, content)
 
   }
-
 }
