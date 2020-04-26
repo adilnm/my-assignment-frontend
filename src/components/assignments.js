@@ -21,6 +21,7 @@ class Assignments {
 
         const course=new Course(courseItem.attributes,courseItem.id)
         courseContainer.innerHTML=course.render()
+
         const sortBtn=document.createElement('button')
         courseContainer.appendChild(sortBtn)
         sortBtn.innerHTML='Sort By Deadline'
